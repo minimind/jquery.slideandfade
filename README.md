@@ -1,6 +1,6 @@
 # jquery.slideandfade plugin
 
-Simple, jquery.slideandfade is a jQuery plugin that allows you to easily slide and fade out whole
+This project jquery.slideandfade is a jQuery plugin that allows you to easily slide and fade out whole
 groups of elements. Why use it? It looks nice and it's very easy to set up and use.
 
 ## Contents
@@ -12,7 +12,7 @@ groups of elements. Why use it? It looks nice and it's very easy to set up and u
 
 You can download the latest version from here:
 
-http://github blah blah
+https://github.com/minimind/jquery.slideandfade
 
 There are a few simple examples in the index.html.
 To use in your own page, place the jquery.slideandfade.min.js file where your web page can load it,
@@ -49,4 +49,4 @@ many of these display screens are you like.
 
 ## Contributors
 
-ian.macinnes@gmail.com
+ian.macinnes@gmail.com http://www.ianmacinnes.net
