@@ -9,10 +9,11 @@
 <body>
 <div class="main-block">
     <h1>Jquery plugin to slide and fade elements</h1>
+    <p>Author: <a href="http://www.ianmacinnes.net">Ian Macinnes</a></p>
     <p>This page described the slide and fade jQuery plugin, which can be used as a very simple
        and quick method of sliding whole groups of elements out of frame and moving other
        ones in. It's under active development so please contact the author for fixes/suggestions etc.</p>
-    <h2>1. Moving groups of elements around</h2>
+    <h2>Moving groups of elements around</h2>
     <p>The plugin can simply make divisions flying around. Below is an example - click on the box to
        see it working. Each group of elements should be of the class 'displayBox' and each element
        should be of the class fragment (I'll make this configurable via the options soon).</p>
@@ -30,7 +31,7 @@
         </div>
     </div>
     <p>Here's the HTML code for displaying the above box:</p>
-    <pre><code>
+    <div class="codebox"><pre><code>
 &lt;div class="display-screen"&gt;
   &lt;div class="displayBox" id="displayBox0"&gt;
     &lt;div class="fragment" id="a"&gt;The owl and the pussy cat&lt;/div&gt;
@@ -43,26 +44,26 @@
     &lt;div class="fragment" id="f"&gt;Wrapped up in a five pound note.&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;
-    </code></pre>
+    </code></pre></div>
     <p>
         The code to move a particular display box into shot is:
     </p>
-    <pre><code>
+    <div class="codebox"><pre><code>
 $('.display-screen').slideandfade($('#displayBox0'));
-    </code></pre>
+    </code></pre></div>
     <p>
         You can also specify an optional callback for after the whole process is finished.
         You use a settings dictionary to pass along various options.
         Above, I use an option called callback to change toggle which text to display.
         This callback is always called after the text has been moved into position.
     </p>
-    <pre><code>
+    <div class="codebox"><pre><code>
 var screenToDisplay = 1;
 $('.display-screen').click(function() {
   var settings = {callback : function() { screenToDisplay = screenToDisplay == 0 ? 1 : 0; } };
   $('.display-screen').slideandfade($('#displayBox'+screenToDisplay), settings );
 });
-    </code></pre>
+    </code></pre></div>
     <p>It's also easy to have two slideandfade boxes on the same page:
     <div class="display-screen-description" id="display-screen2">
         <div class="displayBox" id="displayBox2_0">
@@ -77,7 +78,7 @@ $('.display-screen').click(function() {
         </div>
     </div>
     <h2>Release history</h2>
-    0.1 Initial release
+    <p>0.9.0 Initial release</p>
     <div class="bottom-space"></div>
 </div>
 <div class="bottom-space"></div>
