@@ -1,0 +1,38 @@
+{
+    "name": "slideandfade",
+    "title": "jQuery Slide and Fade",
+    "description": "jQuery plugin for sliding and fading out groups of elements.",
+    "keywords": [
+        "ui",
+        "animation",
+        "effect",
+        "slide",
+        "fade",
+        "move"
+    ],
+    "version": "1.0.0",
+    "author": {
+        "name": "Ian Macinnes",
+        "url": "http://www.ianmacinnes.net"
+    },
+    "maintainers": [
+        {
+            "name": "Ian Macinnes",
+            "email": "ian.macinnes@gmail.com",
+            "url": "http://www.ianmacinnes.net"
+        }
+    ],
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/minimind/jquery.slideandfade/MIT-LICENSE.txt"
+        }
+    ],
+    "homepage": "https://github.com/minimind/jquery.slideandfade",
+    "docs": "http://www.ianmacinnes.net/jquery.slideandfade",
+    "demo": "http://www.ianmacinnes.net/jquery.slideandfade",
+    "download": "https://github.com/minimind/jquery.slideandfade",
+    "dependencies": {
+        "jquery": ">=1.9"
+    }
+}

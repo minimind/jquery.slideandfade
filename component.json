@@ -1,0 +1,9 @@
+{
+    "name": "slideandfade",
+    "version": "1.0.0",
+    "description": "jQuery plugin for sliding and fading out groups of elements.",
+    "main": "jquery.slideandfade.js",
+    "dependencies": {
+        "jquery": ">=1.9"
+    }
+}
