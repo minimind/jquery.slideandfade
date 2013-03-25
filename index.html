@@ -1,0 +1,86 @@
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Some examples for the jquery-slideandfade.js plugin</title>
+    <link rel="stylesheet" href="/css/examples.min.css" type="text/css" media="screen">
+    <!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-slideandfade.min.js"></script>
+    <script type="text/javascript" src="/js/examples.min.js"></script>
+</head>
+<body>
+<div class="main-block">
+    <h1>Jquery plugin to slide and fade elements</h1>
+    <p>This page described the slide and fade jQuery plugin, which can be used as a very simple
+       and quick method of sliding whole groups of elements out of frame and moving other
+       ones in. It's under active development so please contact the author for fixes/suggestions etc.</p>
+    <h2>1. Moving groups of elements around</h2>
+    <p>The plugin can simply make divisions flying around. Below is an example - click on the box to
+       see it working. Each group of elements should be of the class 'displayBox' and each element
+       should be of the class fragment (I'll make this configurable via the options soon).</p>
+
+    <div class="display-screen-description" id="display-screen1">
+        <div class="displayBox" id="displayBox1_0">
+            <div class="fragment" id="a">The owl and the pussy cat</div>
+            <div class="fragment" id="b">Went to sea</div>
+            <div class="fragment" id="c">In a beautiful pea green boat</div>
+        </div>
+        <div class="displayBox" id="displayBox1_1">
+            <div class="fragment" id="d">They took some honey,</div>
+            <div class="fragment" id="e">And plenty of money</div>
+            <div class="fragment" id="f">Wrapped up in a five pound note.</div>
+        </div>
+    </div>
+    <p>Here's the HTML code for displaying the above box:</p>
+    <pre><code>
+&lt;div class="display-screen"&gt;
+  &lt;div class="displayBox" id="displayBox0"&gt;
+    &lt;div class="fragment" id="a"&gt;The owl and the pussy cat&lt;/div&gt;
+    &lt;div class="fragment" id="b"&gt;Went to sea&lt;/div&gt;
+    &lt;div class="fragment" id="c"&gt;In a beautiful pea green boat&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="displayBox" id="displayBox1"&gt;
+    &lt;div class="fragment" id="d"&gt;They took some honey,&lt;/div&gt;
+    &lt;div class="fragment" id="e"&gt;And plenty of money&lt;/div&gt;
+    &lt;div class="fragment" id="f"&gt;Wrapped up in a five pound note.&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+    </code></pre>
+    <p>
+        The code to move a particular display box into shot is:
+    </p>
+    <pre><code>
+$('.display-screen').slideandfade($('#displayBox0'));
+    </code></pre>
+    <p>
+        You can also specify an optional callback for after the whole process is finished.
+        You use a settings dictionary to pass along various options.
+        Above, I use an option called callback to change toggle which text to display.
+        This callback is always called after the text has been moved into position.
+    </p>
+    <pre><code>
+var screenToDisplay = 1;
+$('.display-screen').click(function() {
+  var settings = {callback : function() { screenToDisplay = screenToDisplay == 0 ? 1 : 0; } };
+  $('.display-screen').slideandfade($('#displayBox'+screenToDisplay), settings );
+});
+    </code></pre>
+    <p>It's also easy to have two slideandfade boxes on the same page:
+    <div class="display-screen-description" id="display-screen2">
+        <div class="displayBox" id="displayBox2_0">
+            <div class="fragment" id="g">Pussy said to the Owl,</div>
+            <div class="fragment" id="h">You elegant fowl!</div>
+            <div class="fragment" id="i">How charmingly sweet you sing!</div>
+        </div>
+        <div class="displayBox" id="displayBox2_1">
+            <div class="fragment" id="j">O let us be married!</div>
+            <div class="fragment" id="k">too long we have tarried:</div>
+            <div class="fragment" id="l">But what shall we do for a ring?</div>
+        </div>
+    </div>
+    <h2>Release history</h2>
+    0.1 Initial release
+    <div class="bottom-space"></div>
+</div>
+<div class="bottom-space"></div>
+</body>
+</html>

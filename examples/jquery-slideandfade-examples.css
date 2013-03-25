@@ -1,0 +1,148 @@
+body {
+    font-family: Arial,Helvetica,sans-serif;
+    background-color: #f5f5f5;
+    background-image: url('../images/escheresque.png');
+}
+
+h1 {
+    color: #696969;
+    font-family: Helvetica,arial,sans-serif;
+    font-size: 30px;
+    font-weight: normal;
+    margin-left: 30px;
+    padding-top: 30px;
+}
+
+h3 {
+    color: #696969;
+    font-family: Helvetica,arial,sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    margin-left: 30px;
+    padding-top: 30px;
+}
+
+p {
+    color: #696969;
+    font-family: Helvetica,arial,sans-serif;
+    padding: 10px 0 10px 0;
+    margin: 0 10px 0 10px;
+}
+
+div.main-block {
+    position: relative;
+    background-color: #ffffff;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+    width: 800px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+div.display-screen-description {
+    width: 400px;
+    height: 300px;
+    margin: 20px auto 20px auto;
+    background-color: #ffffff;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #cccccc;
+}
+
+div.displayBox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 400px;
+    height: 300px;
+    overflow: hidden;
+    visibility: hidden;
+    background-color: #ffffff;
+}
+
+div.fragment {
+    position: absolute;
+    width: 345px;
+    height: 22px;
+    color: #9B9B9B;
+    font-size: 22px;
+    line-height: 22px;
+    font-family: Helvetica,arial,sans-serif;
+    font-weight: normal;
+}
+
+#a {
+    top: 30px;
+    left: 30px;
+}
+
+#b {
+    top: 60px;
+    left: 30px;
+}
+
+#c {
+    top: 90px;
+    left: 30px;
+}
+
+#d {
+    top: 188px;
+    left: 30px;
+}
+
+#e {
+    top: 218px;
+    left: 30px;
+}
+
+#f {
+    top: 248px;
+    left: 30px;
+}
+
+#g {
+    top: 30px;
+    left: 30px;
+}
+
+#h {
+    top: 60px;
+    left: 30px;
+}
+
+#i {
+    top: 90px;
+    left: 30px;
+}
+
+#j {
+    top: 188px;
+    left: 30px;
+}
+
+#k {
+    top: 218px;
+    left: 30px;
+}
+
+#l {
+    top: 248px;
+    left: 30px;
+}
+.bottom-space {
+    height: 30px;
+    width: 800px;
+}
+
+pre {
+    padding: 0 0 0 0;
+    margin: 0 10px 0 10px;
+}
+
+code {
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+}
