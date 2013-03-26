@@ -12,7 +12,11 @@ groups of elements. Why use it? It looks nice and it's very easy to set up and u
 
 You can download the latest version from here:
 
-https://github.com/minimind/jquery.slideandfade
+http://plugins.jquery.com/slideandfade
+
+You can look at a demo and some basic instructions here:
+
+http://www.ianmacinnes.net/blog/2013/03/26/jquery-plugin-to-slide-and-fade-elements/
 
 There are a few simple examples in the index.html.
 To use in your own page, place the jquery.slideandfade.min.js file where your web page can load it,
@@ -24,12 +28,12 @@ Here is an simple example of how a part of your web page might be set out:
 
 ```html
 <div class="display-screen-description" id="display-screen">
-    <div class="displayBox" id="displayBox1_0">
+    <div class="displayBox" id="displayBox0">
         <div class="fragment" id="a">The owl and the pussy cat</div>
         <div class="fragment" id="b">Went to sea</div>
         <div class="fragment" id="c">In a beautiful pea green boat</div>
     </div>
-    <div class="displayBox" id="displayBox1_1">
+    <div class="displayBox" id="displayBox1">
         <div class="fragment" id="d">They took some honey,</div>
         <div class="fragment" id="e">And plenty of money</div>
         <div class="fragment" id="f">Wrapped up in a five pound note.</div>
