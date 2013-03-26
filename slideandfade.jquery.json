@@ -29,9 +29,8 @@
         }
     ],
     "homepage": "https://github.com/minimind/jquery.slideandfade",
-    "docs": "http://www.ianmacinnes.net/jquery.slideandfade",
-    "demo": "http://www.ianmacinnes.net/jquery.slideandfade",
-    "download": "https://github.com/minimind/jquery.slideandfade",
+    "docs": "http://www.ianmacinnes.net/blog/2013/03/26/jquery-plugin-to-slide-and-fade-elements/",
+    "demo": "http://www.ianmacinnes.net/blog/2013/03/26/jquery-plugin-to-slide-and-fade-elements/",
     "dependencies": {
         "jquery": ">=1.9"
     }

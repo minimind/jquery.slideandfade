@@ -45,7 +45,7 @@ $('#display-screen').slideandfade($('#displayBox0'));
 
 All the elements with the fragment class presently showing will fade out and gently slide out of view.
 Then the faded elements of displayBox0 will slide in and become opaque when in position. You can have as
-many of these display screens are you like.
+many of these display screens as you like.
 
 ## Contributors
 
