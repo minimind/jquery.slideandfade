@@ -140,7 +140,7 @@
         }
     }
 
-    $.fn.slideandfade = function(thisDisplayBox, options) {
+    $.fn.slideandfade = function(displayBox, options) {
         /*
          Configurable options. Not so many at the moment...
          */
@@ -220,7 +220,7 @@
             if (!nspace.busy) {
                 nspace.busy = true;
 
-                if (!nspace.haveScatteredFragments || thisDisplayBox === undefined) {
+                if (!nspace.haveScatteredFragments || displayBox === undefined) {
                     /*
                      We know that we need to put all the fragments in random positions since we have not set
                      the haveScatteredFragments value to true yet. We do this by first fading all the elements
@@ -232,11 +232,11 @@
                     callIfFinished = function() {
                         ++counter;
                         if (counter === 2 * nspace.displayBoxes.length) {
-                            if (thisDisplayBox === undefined) {
+                            if (displayBox === undefined) {
                                 nspace.busy = false;
                                 settings.callback();
                             } else {
-                                performSlideAndFade(thisDisplayBox, settings.callback);
+                                performSlideAndFade(displayBox, settings.callback);
                             }
                         }
                     };
@@ -246,7 +246,7 @@
                         changeFragmentsAlpha(nspace.displayBoxes[i], 0, 0.2, callIfFinished);
                     }
                 } else {
-                    performSlideAndFade(thisDisplayBox, settings.callback);
+                    performSlideAndFade(displayBox, settings.callback);
                 }
             }
         });
