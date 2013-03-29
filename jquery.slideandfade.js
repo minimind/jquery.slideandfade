@@ -73,17 +73,7 @@
             fragment,
             left,
             top,
-            i,
-            callIfFinished = (function($displayBox) {
-                return function() {
-                    totalFinished += 1;
-                    if (totalFinished === fragments.length) {
-                        // Now that we're finished, we can made the whole display box hidden
-                        $displayBox.css("visibility", "hidden");
-                        callback();
-                    }
-                };
-            }($displayBox));
+            i;
 
         for (i = 0; i < fragments.length; ++i) {
             fragment = fragments[i];
@@ -111,7 +101,14 @@
             $("#" + fragment.id).delay(i * delay).animate({
                 left: left,
                 top:  top
-            }, 750, callIfFinished);
+            }, 750, function() {
+                totalFinished += 1;
+                if (totalFinished === fragments.length) {
+                    // Now that we're finished, we can made the whole display box hidden
+                    $displayBox.css("visibility", "hidden");
+                    callback();
+                }
+            });
         }
     }
 
@@ -120,19 +117,13 @@
      original correct locations.
      */
     function moveFragmentsToCorrectPosition(displayBox, callback) {
-        var fragments = $(displayBox).data("originalFragments"),
+        var $displayBox = $(displayBox),
+            fragments = $displayBox.data("originalFragments"),
             totalFinished = 0,
             fragment,
             i;
 
-        $(displayBox).css("visibility", "visible");
-
-        function callIfFinished() {
-            totalFinished += 1;
-            if (totalFinished === fragments.length) {
-                callback();
-            }
-        }
+        $displayBox.css("visibility", "visible");
 
         // OK, first we have to pick random starting positions for all the fragments
         for (i = 0; i < fragments.length; ++i) {
@@ -140,7 +131,12 @@
             $("#" + fragment.id).delay(i * 100).animate({
                 left: fragment.left,
                 top:  fragment.top
-            }, 750, callIfFinished);
+            }, 750, function () {
+                totalFinished += 1;
+                if (totalFinished === fragments.length) {
+                    callback();
+                }
+            });
         }
     }
 
@@ -157,9 +153,10 @@
              We need to set up a namespace environment for each display box so we can deal with
              multiple boxes at the same time.
              */
-            var width  = $(this).width(),
-                height = $(this).height(),
-                nspace = $(this).data("nspace"),
+            var $this = $(this),
+                width  = $this.width(),
+                height = $this.height(),
+                nspace = $this.data("nspace"),
                 displayBoxesTemp,
                 showNewDisplayBox;
 
@@ -172,7 +169,7 @@
                     displayBoxes :           displayBoxesTemp     // A selection of all the display boxes.
                 };
 
-                $(this).data("nspace", nspace);
+                $this.data("nspace", nspace);
 
                 // We analyse the page, grab all the element positions and store them.
                 nspace.displayBoxes.each(function() {
