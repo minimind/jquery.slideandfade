@@ -215,46 +215,40 @@
                 completedDisplayBoxSwitch_Fn();
             }
 
-            showNewDisplayBox = (function(displayBox, callback) {
-                return function() {
-                    var counter, i, callIfFinished;
+            var counter, i, callIfFinished;
 
-                    if (!nspace.busy) {
-                        nspace.busy = true;
+            if (!nspace.busy) {
+                nspace.busy = true;
 
-                        if (!nspace.haveScatteredFragments || displayBox === undefined) {
-                            /*
-                             We know that we need to put all the fragments in random positions since we have not set
-                             the haveScatteredFragments value to true yet. We do this by first fading all the elements
-                             and then moving them to random positions, just out of view.
-                             */
-                            nspace.haveScatteredFragments = true;
-                            counter = 0;
+                if (!nspace.haveScatteredFragments || thisDisplayBox === undefined) {
+                    /*
+                     We know that we need to put all the fragments in random positions since we have not set
+                     the haveScatteredFragments value to true yet. We do this by first fading all the elements
+                     and then moving them to random positions, just out of view.
+                     */
+                    nspace.haveScatteredFragments = true;
+                    counter = 0;
 
-                            callIfFinished = function() {
-                                ++counter;
-                                if (counter === 2 * nspace.displayBoxes.length) {
-                                    if (displayBox === undefined) {
-                                        nspace.busy = false;
-                                        callback();
-                                    } else {
-                                        performSlideAndFade(displayBox, callback);
-                                    }
-                                }
-                            };
-
-                            for (i = 0; i < nspace.displayBoxes.length; ++i) {
-                                slideElementsToRandomPosition(0, nspace.displayBoxes[i], width, height, callIfFinished);
-                                changeFragmentsAlpha(nspace.displayBoxes[i], 0, 0.2, callIfFinished);
+                    callIfFinished = function() {
+                        ++counter;
+                        if (counter === 2 * nspace.displayBoxes.length) {
+                            if (thisDisplayBox === undefined) {
+                                nspace.busy = false;
+                                settings.callback();
+                            } else {
+                                performSlideAndFade(thisDisplayBox, settings.callback);
                             }
-                        } else {
-                            performSlideAndFade(displayBox, callback);
                         }
-                    }
-                };
-            }(thisDisplayBox, settings.callback));
+                    };
 
-            showNewDisplayBox();
+                    for (i = 0; i < nspace.displayBoxes.length; ++i) {
+                        slideElementsToRandomPosition(0, nspace.displayBoxes[i], width, height, callIfFinished);
+                        changeFragmentsAlpha(nspace.displayBoxes[i], 0, 0.2, callIfFinished);
+                    }
+                } else {
+                    performSlideAndFade(thisDisplayBox, settings.callback);
+                }
+            }
         });
     };
 }(jQuery));
