@@ -50,16 +50,14 @@
             fragment,
             i;
 
-        function callIfFinished() {
-            totalFinished += 1;
-            if (totalFinished === fragments.length) {
-                callback();
-            }
-        }
-
         for (i = 0; i < fragments.length; ++i) {
             fragment = fragments[i];
-            $("#" + fragment.id).fadeTo(delay, fade_to, callIfFinished);
+            $("#" + fragment.id).fadeTo(delay, fade_to, function () {
+                totalFinished += 1;
+                if (totalFinished === fragments.length) {
+                    callback();
+                }
+            });
         }
     }
 
@@ -159,8 +157,8 @@
              We need to set up a namespace environment for each display box so we can deal with
              multiple boxes at the same time.
              */
-            var width  = parseInt($(this).css("width"), 10),
-                height = parseInt($(this).css("height"), 10),
+            var width  = $(this).width(),
+                height = $(this).height(),
                 nspace = $(this).data("nspace"),
                 displayBoxesTemp,
                 showNewDisplayBox;
@@ -183,10 +181,10 @@
                         var f = {};
 
                         f.id = $(this).attr("id");
-                        f.width = parseInt($(this).css("width"), 10);
-                        f.height = parseInt($(this).css("height"), 10);
-                        f.top = parseInt($(this).css("top"), 10);
-                        f.left = parseInt($(this).css("left"), 10);
+                        f.width = $(this).width();
+                        f.height = $(this).height();
+                        f.top = $(this).position().top;
+                        f.left = $(this).position().left;
                         fragments[j] = f;
                     });
 
