@@ -48,16 +48,17 @@
         var fragments = $(displayBox).data("originalFragments"),
             totalFinished = 0,
             fragment,
-            i;
-
-        for (i = 0; i < fragments.length; ++i) {
-            fragment = fragments[i];
-            $("#" + fragment.id).fadeTo(delay, fade_to, function () {
+            i,
+            callWhenFinished = function() {
                 totalFinished += 1;
                 if (totalFinished === fragments.length) {
                     callback();
                 }
-            });
+            };
+
+        for (i = 0; i < fragments.length; ++i) {
+            fragment = fragments[i];
+            $("#" + fragment.id).fadeTo(delay, fade_to, callWhenFinished);
         }
     }
 
@@ -73,7 +74,15 @@
             fragment,
             left,
             top,
-            i;
+            i,
+            callWhenFinished = function() {
+                totalFinished += 1;
+                if (totalFinished === fragments.length) {
+                    // Now that we're finished, we can made the whole display box hidden
+                    $displayBox.css("visibility", "hidden");
+                    callback();
+                }
+            };
 
         for (i = 0; i < fragments.length; ++i) {
             fragment = fragments[i];
@@ -101,42 +110,7 @@
             $("#" + fragment.id).delay(i * delay).animate({
                 left: left,
                 top:  top
-            }, 750, function() {
-                totalFinished += 1;
-                if (totalFinished === fragments.length) {
-                    // Now that we're finished, we can made the whole display box hidden
-                    $displayBox.css("visibility", "hidden");
-                    callback();
-                }
-            });
-        }
-    }
-
-    /*
-     There are elements placed at random locations. Now we need to slide them across to the
-     original correct locations.
-     */
-    function moveFragmentsToCorrectPosition(displayBox, callback) {
-        var $displayBox = $(displayBox),
-            fragments = $displayBox.data("originalFragments"),
-            totalFinished = 0,
-            fragment,
-            i;
-
-        $displayBox.css("visibility", "visible");
-
-        // OK, first we have to pick random starting positions for all the fragments
-        for (i = 0; i < fragments.length; ++i) {
-            fragment = fragments[i];
-            $("#" + fragment.id).delay(i * 100).animate({
-                left: fragment.left,
-                top:  fragment.top
-            }, 750, function () {
-                totalFinished += 1;
-                if (totalFinished === fragments.length) {
-                    callback();
-                }
-            });
+            }, 750, callWhenFinished);
         }
     }
 
@@ -144,7 +118,10 @@
         /*
          Configurable options. Not so many at the moment...
          */
-        var settings = $.extend({
+        var counter,
+            callWhenFinished,
+            i,
+            settings = $.extend({
             callback : function() {}
         }, options);
 
@@ -157,8 +134,7 @@
                 width  = $this.width(),
                 height = $this.height(),
                 nspace = $this.data("nspace"),
-                displayBoxesTemp,
-                showNewDisplayBox;
+                displayBoxesTemp;
 
             if (nspace === undefined) {
                 displayBoxesTemp = $(".displayBox", this);
@@ -175,6 +151,7 @@
                 nspace.displayBoxes.each(function() {
                     var $this = $(this),
                         fragments = [];
+
                     $this.children(".fragment").each(function(j) {
                         var $this = $(this),
                             f = {};
@@ -191,31 +168,49 @@
                 });
             }
 
-            function performSlideAndFade(displayBox, callback) {
-                var lastCurrentDisplayBox = nspace.currentDisplayBox,
-                    moveFragmentsToCorrectPosition_Fn = (function(displayBox) {
-                        return function() {
-                            moveFragmentsToCorrectPosition(displayBox, function() {
-                                changeFragmentsAlpha(displayBox, 250, 1.0, function() {
-                                    nspace.busy = false;
-                                    callback();
-                                });
+            /*
+             There are elements placed at random locations. Now we need to slide them across to the
+             original correct locations.
+             */
+            function moveFragmentsToCorrectPosition(displayBox, callback) {
+                var $displayBox = $(displayBox),
+                    fragments = $displayBox.data("originalFragments"),
+                    totalFinished = 0,
+                    fragment,
+                    i,
+                    callWhenFinished = function () {
+                        totalFinished += 1;
+                        if (totalFinished === fragments.length) {
+                            changeFragmentsAlpha(displayBox, 250, 1.0, function() {
+                                nspace.busy = false;
+                                callback();
                             });
-                        };
-                    }(displayBox)),
-                    completedDisplayBoxSwitch_Fn = (function(lastCurrentDisplayBox) {
-                        return function() {
-                            changeFragmentsAlpha(lastCurrentDisplayBox, 250, 0.2, function() {
-                                slideElementsToRandomPosition(100, lastCurrentDisplayBox, width, height, moveFragmentsToCorrectPosition_Fn);
-                            });
-                        };
-                    }(lastCurrentDisplayBox));
+                        }
+                    };
 
-                nspace.currentDisplayBox = displayBox;
-                completedDisplayBoxSwitch_Fn();
+                $displayBox.css("visibility", "visible");
+
+                // OK, first we have to pick random starting positions for all the fragments
+                for (i = 0; i < fragments.length; ++i) {
+                    fragment = fragments[i];
+                    $("#" + fragment.id).delay(i * 100).animate({
+                        left: fragment.left,
+                        top:  fragment.top
+                    }, 750, callWhenFinished);
+                }
             }
 
-            var counter, i, callIfFinished;
+            function performSlideAndFade(displayBox, callback) {
+                var lastCurrentDisplayBox = nspace.currentDisplayBox,
+                    moveFragmentsToCorrectPosition_Fn = function() {
+                        moveFragmentsToCorrectPosition(displayBox, callback);
+                    };
+
+                nspace.currentDisplayBox = displayBox;
+                changeFragmentsAlpha(lastCurrentDisplayBox, 250, 0.2, function() {
+                    slideElementsToRandomPosition(100, lastCurrentDisplayBox, width, height, moveFragmentsToCorrectPosition_Fn);
+                });
+            }
 
             if (!nspace.busy) {
                 nspace.busy = true;
@@ -229,7 +224,7 @@
                     nspace.haveScatteredFragments = true;
                     counter = 0;
 
-                    callIfFinished = function() {
+                    callWhenFinished = function() {
                         ++counter;
                         if (counter === 2 * nspace.displayBoxes.length) {
                             if (displayBox === undefined) {
@@ -242,8 +237,8 @@
                     };
 
                     for (i = 0; i < nspace.displayBoxes.length; ++i) {
-                        slideElementsToRandomPosition(0, nspace.displayBoxes[i], width, height, callIfFinished);
-                        changeFragmentsAlpha(nspace.displayBoxes[i], 0, 0.2, callIfFinished);
+                        slideElementsToRandomPosition(0, nspace.displayBoxes[i], width, height, callWhenFinished);
+                        changeFragmentsAlpha(nspace.displayBoxes[i], 0, 0.2, callWhenFinished);
                     }
                 } else {
                     performSlideAndFade(displayBox, settings.callback);
