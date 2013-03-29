@@ -173,19 +173,21 @@
 
                 // We analyse the page, grab all the element positions and store them.
                 nspace.displayBoxes.each(function() {
-                    var fragments = [];
-                    $(this).children(".fragment").each(function(j) {
-                        var f = {};
+                    var $this = $(this),
+                        fragments = [];
+                    $this.children(".fragment").each(function(j) {
+                        var $this = $(this),
+                            f = {};
 
-                        f.id = $(this).attr("id");
-                        f.width = $(this).width();
-                        f.height = $(this).height();
-                        f.top = $(this).position().top;
-                        f.left = $(this).position().left;
+                        f.id = $this.attr("id");
+                        f.width = $this.width();
+                        f.height = $this.height();
+                        f.top = $this.position().top;
+                        f.left = $this.position().left;
                         fragments[j] = f;
                     });
 
-                    $(this).data("originalFragments", fragments);
+                    $this.data("originalFragments", fragments);
                 });
             }
 
