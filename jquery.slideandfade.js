@@ -159,8 +159,8 @@
              We need to set up a namespace environment for each display box so we can deal with
              multiple boxes at the same time.
              */
-            var width  = parseInt($(this).css("width")),
-                height = parseInt($(this).css("height")),
+            var width  = parseInt($(this).css("width"), 10),
+                height = parseInt($(this).css("height"), 10),
                 nspace = $(this).data("nspace"),
                 displayBoxesTemp,
                 showNewDisplayBox;
