@@ -69,22 +69,23 @@
      */
     function slideElementsToRandomPosition(delay, displayBox,  width, height, callback) {
 
-        var fragments = $(displayBox).data("originalFragments"),
+        var $displayBox = $(displayBox),
+            fragments = $displayBox.data("originalFragments"),
             totalFinished = 0,
             fragment,
             left,
             top,
             i,
-            callIfFinished = (function(displayBox) {
+            callIfFinished = (function($displayBox) {
                 return function() {
                     totalFinished += 1;
                     if (totalFinished === fragments.length) {
                         // Now that we're finished, we can made the whole display box hidden
-                        $(displayBox).css("visibility", "hidden");
+                        $displayBox.css("visibility", "hidden");
                         callback();
                     }
                 };
-            }(displayBox));
+            }($displayBox));
 
         for (i = 0; i < fragments.length; ++i) {
             fragment = fragments[i];
@@ -95,16 +96,16 @@
 
             switch (randomWithinRange(0, 4)) {
                 case 0:
-                    left = -fragment.width - 5;
+                    left = -fragment.width;
                     break;
                 case 1:
-                    left = width + 5;
+                    left = width;
                     break;
                 case 2:
-                    top = -fragment.height - 5;
+                    top = -fragment.height;
                     break;
                 case 3:
-                    top = height + 5;
+                    top = height;
                     break;
             }
 
