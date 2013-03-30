@@ -44,8 +44,8 @@
      Fades in or fades out all the fragments of the given display box over time.
      Afterwards we call the given callback too.
      */
-    function changeFragmentsAlpha(displayBox, delay, fade_to, callback) {
-        var fragments = $(displayBox).data("originalFragments"),
+    function changeFragmentsAlpha($displayBox, delay, fade_to, callback) {
+        var fragments = $displayBox.data("originalFragments"),
             totalFinished = 0,
             fragment,
             i,
@@ -66,10 +66,9 @@
      We pick random positions for all the fragments to slide to, then
      we slide them.
      */
-    function slideElementsToRandomPosition(delay, displayBox,  width, height, callback) {
+    function slideElementsToRandomPosition(delay, $displayBox,  width, height, callback) {
 
-        var $displayBox = $(displayBox),
-            fragments = $displayBox.data("originalFragments"),
+        var fragments = $displayBox.data("originalFragments"),
             totalFinished = 0,
             fragment,
             left,
@@ -121,6 +120,8 @@
         var counter,
             callWhenFinished,
             i,
+            $displayBoxes_i,
+            $displayBox = $(displayBox),
             settings = $.extend({
             callback : function() {}
         }, options);
@@ -139,7 +140,7 @@
             if (nspace === undefined) {
                 displayBoxesTemp = $(".displayBox", this);
                 nspace = {
-                    currentDisplayBox :      displayBoxesTemp[0], // The box we're currently looking at.
+                    currentDisplayBox :      $(displayBoxesTemp[0]), // The box we're currently looking at.
                     busy :                   false,               // Can we change display boxes right now or not?
                     haveScatteredFragments : false,               // Have we initialised the elements?
                     displayBoxes :           displayBoxesTemp     // A selection of all the display boxes.
@@ -172,16 +173,15 @@
              There are elements placed at random locations. Now we need to slide them across to the
              original correct locations.
              */
-            function moveFragmentsToCorrectPosition(displayBox, callback) {
-                var $displayBox = $(displayBox),
-                    fragments = $displayBox.data("originalFragments"),
+            function moveFragmentsToCorrectPosition($displayBox, callback) {
+                var fragments = $displayBox.data("originalFragments"),
                     totalFinished = 0,
                     fragment,
                     i,
                     callWhenFinished = function () {
                         totalFinished += 1;
                         if (totalFinished === fragments.length) {
-                            changeFragmentsAlpha(displayBox, 250, 1.0, function() {
+                            changeFragmentsAlpha($displayBox, 250, 1.0, function() {
                                 nspace.busy = false;
                                 callback();
                             });
@@ -200,15 +200,15 @@
                 }
             }
 
-            function performSlideAndFade(displayBox, callback) {
-                var lastCurrentDisplayBox = nspace.currentDisplayBox,
+            function performSlideAndFade($displayBox, callback) {
+                var $lastCurrentDisplayBox = nspace.currentDisplayBox,
                     moveFragmentsToCorrectPosition_Fn = function() {
-                        moveFragmentsToCorrectPosition(displayBox, callback);
+                        moveFragmentsToCorrectPosition($displayBox, callback);
                     };
 
-                nspace.currentDisplayBox = displayBox;
-                changeFragmentsAlpha(lastCurrentDisplayBox, 250, 0.2, function() {
-                    slideElementsToRandomPosition(100, lastCurrentDisplayBox, width, height, moveFragmentsToCorrectPosition_Fn);
+                nspace.currentDisplayBox = $displayBox;
+                changeFragmentsAlpha($lastCurrentDisplayBox, 250, 0.2, function() {
+                    slideElementsToRandomPosition(100, $lastCurrentDisplayBox, width, height, moveFragmentsToCorrectPosition_Fn);
                 });
             }
 
@@ -231,17 +231,18 @@
                                 nspace.busy = false;
                                 settings.callback();
                             } else {
-                                performSlideAndFade(displayBox, settings.callback);
+                                performSlideAndFade($displayBox, settings.callback);
                             }
                         }
                     };
 
                     for (i = 0; i < nspace.displayBoxes.length; ++i) {
-                        slideElementsToRandomPosition(0, nspace.displayBoxes[i], width, height, callWhenFinished);
-                        changeFragmentsAlpha(nspace.displayBoxes[i], 0, 0.2, callWhenFinished);
+                        $displayBoxes_i = $(nspace.displayBoxes[i]);
+                        slideElementsToRandomPosition(0, $displayBoxes_i, width, height, callWhenFinished);
+                        changeFragmentsAlpha($displayBoxes_i, 0, 0.2, callWhenFinished);
                     }
                 } else {
-                    performSlideAndFade(displayBox, settings.callback);
+                    performSlideAndFade($displayBox, settings.callback);
                 }
             }
         });
