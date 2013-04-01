@@ -123,8 +123,8 @@
             $displayBoxes_i,
             $displayBox = $(displayBox),
             settings = $.extend({
-            callback : function() {}
-        }, options);
+                callback : function() {}
+            }, options);
 
         return this.each(function() {
             /*
