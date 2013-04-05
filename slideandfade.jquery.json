@@ -10,7 +10,7 @@
         "fade",
         "move"
     ],
-    "version": "0.9.2",
+    "version": "0.9.3",
     "author": {
         "name": "Ian Macinnes",
         "url": "http://www.ianmacinnes.net"
@@ -32,6 +32,6 @@
     "docs": "http://www.ianmacinnes.net/blog/2013/03/26/jquery-plugin-to-slide-and-fade-elements/",
     "demo": "http://www.ianmacinnes.net/blog/2013/03/26/jquery-plugin-to-slide-and-fade-elements/",
     "dependencies": {
-        "jquery": ">=1.9"
+        "jquery": ">=1.4.0"
     }
 }
